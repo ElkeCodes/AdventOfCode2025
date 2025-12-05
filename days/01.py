@@ -28,12 +28,6 @@ def test_part_1_example():
     assert part_1(example_input) == 3
 
 
-def loop(x: int, n: int) -> tuple[int, int]:
-    to_add = min(n, 100)
-    x += to_add
-    return (x, n - to_add)
-
-
 def part_2(lines: list[str]) -> int:
     position = 50
     times_0 = 0
