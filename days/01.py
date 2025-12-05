@@ -1,7 +1,4 @@
-def parse_file(filename: str) -> list[str]:
-    with open(filename) as f:
-        input_data = f.read()
-    return input_data.strip().splitlines()
+from utils.parse_file import parse_file
 
 
 def part_1(lines: list[str]) -> int:
@@ -14,7 +11,7 @@ def part_1(lines: list[str]) -> int:
                 position += amount
             case "L":
                 position -= amount
-        position = position % (-100 if position < 0 else 100)
+        position %= 100
         if position == 0:
             times_0 += 1
     return times_0
@@ -26,3 +23,40 @@ def test_part_1():
 
 def test_part_1_example():
     assert part_1(parse_file("days/01.example")) == 3
+
+
+def loop(x: int, n: int) -> tuple[int, int]:
+    to_add = min(n, 100)
+    x += to_add
+    return (x, n - to_add)
+
+
+def part_2(lines: list[str]) -> int:
+    position = 50
+    times_0 = 0
+    for line in lines:
+        direction, amount = line[0], int(line[1:])
+        for _ in range(amount):
+            match direction:
+                case "R":
+                    position += 1
+                case "L":
+                    position -= 1
+            position %= 100
+            times_0 += position == 0
+    return times_0
+
+
+def test_part_2():
+    assert part_2(parse_file("days/01.actual")) == 6684
+
+
+def test_part_2_example():
+    assert part_2(parse_file("days/01.example")) == 6
+
+
+def test_part_2_debug():
+    assert part_2(["L200"]) == 2
+    assert part_2(["L250"]) == 3
+    assert part_2(["R200"]) == 2
+    assert part_2(["R250"]) == 3
