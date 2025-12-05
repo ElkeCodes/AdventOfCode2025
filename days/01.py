@@ -1,5 +1,8 @@
 from utils.parse_file import parse_file
 
+actual_input = parse_file("days/inputs/01.actual")
+example_input = parse_file("days/inputs/01.example")
+
 
 def part_1(lines: list[str]) -> int:
     position = 50
@@ -18,11 +21,11 @@ def part_1(lines: list[str]) -> int:
 
 
 def test_part_1():
-    assert part_1(parse_file("days/01.actual")) == 1139
+    assert part_1(actual_input) == 1139
 
 
 def test_part_1_example():
-    assert part_1(parse_file("days/01.example")) == 3
+    assert part_1(example_input) == 3
 
 
 def loop(x: int, n: int) -> tuple[int, int]:
@@ -48,11 +51,11 @@ def part_2(lines: list[str]) -> int:
 
 
 def test_part_2():
-    assert part_2(parse_file("days/01.actual")) == 6684
+    assert part_2(actual_input) == 6684
 
 
 def test_part_2_example():
-    assert part_2(parse_file("days/01.example")) == 6
+    assert part_2(example_input) == 6
 
 
 def test_part_2_debug():
