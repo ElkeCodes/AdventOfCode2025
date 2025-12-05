@@ -1,4 +1,4 @@
 import os
 
 if __name__ == "__main__":
-    os.system('uv run pytest')
+    os.system("uv run pytest -s")
