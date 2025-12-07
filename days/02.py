@@ -18,12 +18,13 @@ def test_is_valid_id():
 
 
 def loop(id_range: str, is_valid_id_tester: Callable[[str], bool]) -> int:
-    result = 0
-    [begin, end] = id_range.split("-")
-    for n in range(int(begin), int(end) + 1):
-        if not (is_valid_id_tester(str(n))):
-            result += n
-    return result
+    [begin, end] = map(int, id_range.split("-"))
+    return sum(
+        map(
+            lambda x: x if not is_valid_id_tester(str(x)) else 0,
+            range(begin, end + 1),
+        )
+    )
 
 
 def part_1(lines: list[str]) -> int:
