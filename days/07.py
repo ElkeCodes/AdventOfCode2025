@@ -1,19 +1,12 @@
+from collections import defaultdict
 from utils.parse_file import parse_file
 
 actual_input = parse_file("days/inputs/07.actual")
 example_input = parse_file("days/inputs/07.example")
 
 
-def parse_lines(lines: list[str]) -> tuple[tuple[int, int], list[list[int]]]:
-    s_position = (lines[0].index("S"), 0)
-    parsed_lines = list(
-        list(map(lambda x: 0 if x == "." else -1, list(line))) for line in lines
-    )
-    return (s_position, parsed_lines)
-
-
 def part_1(lines: list[str]) -> int:
-    (start, parsed_lines) = parse_lines(lines)
+    start = (lines[0].index("S"), int(0))
     positions = list([start])
     times_split = 0
     for y in range(len(lines) - 1):
@@ -41,26 +34,18 @@ def test_part_1_actual():
 
 
 def part_2(lines: list[str]) -> int:
-    (start, parsed_lines) = parse_lines(lines)
-    # print(parsed_lines)
-    positions = list([start])
-    for y in range(len(lines) - 1):
-        for _ in range(len(positions)):
-            (first_x, first_y) = positions.pop(0)
-            # print("setting", first_x, first_y)
-            parsed_lines[first_y][first_x] += 1
-            new_y = first_y + 1
-            if parsed_lines[new_y][first_x] == -1:
-                # print('splitter found')
-                # if (first_x - 1, new_y) not in positions:
-                positions.append((first_x - 1, new_y))
-                # if (first_x + 1, new_y) not in positions:
-                positions.append((first_x + 1, new_y))
+    start_x = lines[0].index("S")
+    beams = {start_x: 1}
+    for line in lines:
+        new_beams = defaultdict(int)
+        for i, n in beams.items():
+            if line[i] == "^":
+                new_beams[i - 1] += n
+                new_beams[i + 1] += n
             else:
-                # if (first_x, new_y) not in positions:
-                positions.append((first_x, new_y))
-    # last line was not used in parsed_lines so we take second to last line
-    return sum(list(map(lambda x: 0 if x == -1 else x, parsed_lines[-2])))
+                new_beams[i] += n
+        beams = new_beams
+    return sum(beams[index] for index in beams)
 
 
 def test_part_2_example():
@@ -68,4 +53,4 @@ def test_part_2_example():
 
 
 def test_part_2_actual():
-    assert part_2(actual_input) == 3131  # too low
+    assert part_2(actual_input) == 13883459503480
