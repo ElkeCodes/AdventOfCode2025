@@ -8,7 +8,7 @@ example_input = parse_file("days/inputs/02.example")
 def is_valid_id(id: str) -> bool:
     if len(id) % 2 == 1:
         return True
-    middle = int(len(id) / 2)
+    middle = len(id) // 2
     return id[0:middle] != id[middle : len(id)]
 
 

@@ -1,3 +1,4 @@
+from itertools import product
 from utils.parse_file import parse_file
 
 actual_input = parse_file("days/inputs/04.actual")
@@ -11,10 +12,9 @@ def count_neighbours(grid: list[list[str]], position: tuple[int, int]) -> int:
 
     (x, y) = position
     result = 0
-    for delta_y in [-1, 0, 1]:
-        for delta_x in [-1, 0, 1]:
-            if not (delta_y == 0 and delta_x == 0):
-                result += 1 if check_position((x + delta_x, y + delta_y)) else 0
+    for dx, dy in product([-1, 0, 1], repeat=2):
+        if (dx, dy) != (0, 0):
+            result += 1 if check_position((x + dx, y + dy)) else 0
     return result
 
 

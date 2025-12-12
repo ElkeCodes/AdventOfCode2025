@@ -3,7 +3,6 @@ from utils.parse_file import parse_file
 actual_input = parse_file("days/inputs/01.actual")
 example_input = parse_file("days/inputs/01.example")
 
-
 def part_1(lines: list[str]) -> int:
     position = 50
     times_0 = 0

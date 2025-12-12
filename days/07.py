@@ -9,10 +9,10 @@ def part_1(lines: list[str]) -> int:
     start = (lines[0].index("S"), int(0))
     positions = list([start])
     times_split = 0
-    for y in range(len(lines) - 1):
+    for _ in range(len(lines) - 1):
         for _ in range(len(positions)):
             (first_x, first_y) = positions.pop(0)
-            new_y = first_y + 1
+            new_y = first_y + 1 
             if lines[new_y][first_x] == "^":
                 times_split += 1
                 if (first_x - 1, new_y) not in positions:

@@ -92,7 +92,7 @@ def test_get_edges():
     ]
 
 
-def part_2(puzzle_input):
+def part_2(puzzle_input: list[str]) -> int:
     coordinates = parse_coordinates(puzzle_input)
     max_size = 0
     sorted_edges = list(map(sorted, sorted(get_edges(list(coordinates)))))
@@ -119,5 +119,4 @@ def test_part_2_example():
 
 
 def test_part_2_actual():
-    #     assert part_2(actual_input) == 4595056840 # too high
     assert part_2(actual_input) == 1537458069

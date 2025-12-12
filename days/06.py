@@ -1,8 +1,11 @@
 from functools import reduce
+import operator
 from utils.parse_file import parse_file
 
 actual_input = parse_file("days/inputs/06.actual")
 example_input = parse_file("days/inputs/06.example")
+
+operators = {"+": operator.add, "*": operator.mul}
 
 
 def part_1(lines: list[str]) -> int:
@@ -10,7 +13,7 @@ def part_1(lines: list[str]) -> int:
     result = 0
     for index, op in enumerate(lines[-1].split()):
         result += reduce(
-            lambda x, y: x + y if op == "+" else x * y,
+            operators[op],
             (data[row][index] for row in range(len(lines) - 1)),
         )
     return result
@@ -29,7 +32,6 @@ def part_2(lines: list[str]) -> int:
     parsed_numbers = []
     result = 0
     for x in range(len(lines[0]) - 1, -1, -1):
-        print(x)
         number_found = False
         n = 0
         for y in range(len(data)):
@@ -41,13 +43,10 @@ def part_2(lines: list[str]) -> int:
             parsed_numbers.append(n)
         else:
             op = lines[-1][x + 1]
-            print(op)
-            result += reduce(lambda x, y: x + y if op == "+" else x * y, parsed_numbers)
+            result += reduce(operators[op], parsed_numbers)
             parsed_numbers = []
     # the last set of parsed numbers is not yet calculated
-    result += reduce(
-        lambda x, y: x + y if lines[-1][0] == "+" else x * y, parsed_numbers
-    )
+    result += reduce(operators[lines[-1][0]], parsed_numbers)
     return result
 
 
