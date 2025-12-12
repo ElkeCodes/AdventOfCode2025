@@ -1,6 +1,10 @@
 {
   "github.copilot.enable": {
-    "*": false
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+    "python": true
   },
   "workbench.commandPalette.history": 0,
   "scm.workingSets.enabled": true,
